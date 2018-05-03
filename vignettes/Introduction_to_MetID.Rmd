@@ -1,0 +1,62 @@
+---
+title: "Introduction to MetID"
+author: "Xuchen Wang"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE, warning=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+## Introduction
+Metabolomics offers the opportunity to characterize complex diseases. The use of both LC-MS and GC-MS increases the coverage of the metabolome by taking advantage of their complementary features. Although numerous ions are detected using these platforms, only a small subset of the metabolites corresponding to these ions can be identified. The vast majority of them are either unknowns or “known-unknowns”. So we propose an innovative network-based approach to enhance our ability to determine the identities of significant ions detected by LC-MS. Specifically, it uses a probabilistic framework to determine the identities of known-unknowns by prioritizing their putative metabolite IDs. This will be accomplished by exploiting the inter-dependent relationships between metabolites in biological organisms based on knowledge from pathways/biochemical networks. This is the R package MetID that implements the algorithm.    
+
+The main function in this package is get_scores_for_LC_MS. See ?get_scores_for_LC_MC for documentation. This function takes an input dataset and assigns scores for each putative identifications. When working with this function, you must:     
+
+* Have a data file with .csv or .txt extension. Otherwise, you need to read it in R as a 'data.frame' object first.
+
+* Check if the colnames of your data meet requirements: columns named exactly as 'metid' (IDs for peaks), 'query_m.z' (query mass of peaks), 'exact_m.z' (exact mass of putative IDs), 'kegg_id' (IDs of putative IDs from KEGG Database), 'pubchem_cid' (CIDs of putative IDs from PubChem Database).
+
+
+## Example
+
+This example shows the usage of function get_scores_for_LC_MS with a small dataset: demo1. This dataset only contains 3 compounds and is documented in ?demo1. Note: the scores are only meaningful when we have a dataset with a large number of compounds. So the result of demo1 dataset does not make sense.
+
+##### Load MetID package first.
+```{r}
+library(MetID)
+```
+
+##### Load demo1 dataset.
+```{r}
+data("demo1")
+dim(demo1)
+head(demo1) 
+```
+
+##### Check the form of demo1 dataset.
+```{r}
+names(demo1)
+```
+
+
+##### Change colnames of demo1.
+Since the colnames do not meet our requirement, we need to change its colnames before we use get_scores_for_LC_MS function.
+```{r}
+colnames(demo1) <- c('query_m.z','name','formula','exact_m.z','pubchem_cid','kegg_id')
+out <- get_scores_for_LC_MS(demo1, type = 'data.frame', na='-', mode='POS')
+head(out)
+```
+
+
+## Other data sources
+We also include a large dataset (demo2) which generates meaningful scores. As well as data frames, MetID works with data that is stored in other ways, like csv files and text files.
