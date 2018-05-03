@@ -6,7 +6,7 @@ This R package implements Baysian approach with pathway and network information 
 You can install MetID package from GitHub with:
 ```r
 # install.packages("devtools")
-devtools::install_github("ressomlab/INDEED")
+devtools::install_github("ressomlab/MetID")
 ```
 
 ## Example
