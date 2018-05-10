@@ -5,7 +5,7 @@
 \title{Get scores for metabolite putative IDs by LC-MS .}
 \usage{
 get_scores_for_LC_MS(filename, type = c("data.frame", "csv", "txt"),
-  na = "NA", sep = ";", mode = c("POS", "NEG"), Size = 5000,
+  na = "NA", sep = ";", mode = c("POS", "NEG"), Size = 2000,
   delta = 1, gamma_mass = 10)
 }
 \arguments{

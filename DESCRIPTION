@@ -1,7 +1,7 @@
 Package: MetID
 Type: Package
 Title: Network-based prioritization of putative metabolite IDs
-Version: 0.99.2
+Version: 0.99.3
 Author: Xuchen Wang <xw187@georgetown.edu>
 Maintainer: Xuchen Wang <xw187@georgetown.edu>
 URL: https://github.com/ressomlab/MetID

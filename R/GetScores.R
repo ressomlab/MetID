@@ -37,7 +37,7 @@
 #' @import devtools
 
 get_scores_for_LC_MS <- function(filename, type = c('data.frame','csv','txt'), na = 'NA', sep = ';',
-                                 mode = c('POS','NEG'), Size=5000, delta=1, gamma_mass=10){
+                                 mode = c('POS','NEG'), Size=2000, delta=1, gamma_mass=10){
 
   ## Preprocess data
   list_from_get_cleaned <- get_cleaned(filename, type = type, na = na, sep = sep)
@@ -81,7 +81,7 @@ get_scores_for_LC_MS <- function(filename, type = c('data.frame','csv','txt'), n
 
   # Gibbs Samplings -- burn-in
   print('Start getting random samples: it may take several minutes......')
-  for (s in 1:2000){
+  for (s in 1:500){
     beta_temp <- as.vector(W%*%Z%*%Matrix(1,ncol=1,nrow=m,sparse=TRUE))
     beta <- Matrix::Matrix(beta_temp,ncol=m,nrow=c,sparse=TRUE)-W%*%Z
     beta_sum <- Matrix::Matrix(apply(beta,1,sum),ncol=m,nrow=c,sparse=TRUE)
@@ -93,7 +93,7 @@ get_scores_for_LC_MS <- function(filename, type = c('data.frame','csv','txt'), n
 
   # Gibbs Samplings
   prob <- Matrix::Matrix(0,nrow=c,ncol=m,sparse=TRUE)
-  for (s in 1:(Size-2000)){
+  for (s in 1:(Size-500)){
     beta_temp <- as.vector(W%*%Z%*%Matrix(1,ncol=1,nrow=m,sparse=TRUE))
     beta <- Matrix(beta_temp,ncol=m,nrow=c,sparse=TRUE)-W%*%Z
     beta_sum <- Matrix::Matrix(apply(beta,1,sum),ncol=m,nrow=c,sparse=TRUE)
