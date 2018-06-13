@@ -15,12 +15,8 @@
 #' @param Size an integer which indicates sample size in Gibbs sampling.
 #' @param delta a hyper-parameter representing the mean value of mass ratio.
 #' @param gamma_mass a hyper-parameter representing the accuracy of mass measurement.
-<<<<<<< HEAD
 #' @param iterations ask user to input number of interations,default 500
 #' @return A dataframe which contains input data together with a
-=======
-#' @return A csv file named 'scores.csv' in the work directory which contains input data together with a
->>>>>>> eb66f9edd10e572e7e0edd24e2e01afcc3cdfdf5
 #'         column of scores in the end. In the
 #'         score column, if the row contains NA values or does not has a PubChem cid, the score would be
 #'         '-', which stands for missing value. Otherwise, each score would be from 0 to 1.
@@ -42,11 +38,7 @@
 #' @import devtools
 
 get_scores_for_LC_MS <- function(filename, type = c('data.frame','csv','txt'), na = 'NA', sep = ';',
-<<<<<<< HEAD
                                  mode = c('POS','NEG'), Size=2000, delta=1, gamma_mass=10,iterations=500){
-=======
-                                 mode = c('POS','NEG'), Size=2000, delta=1, gamma_mass=10){
->>>>>>> eb66f9edd10e572e7e0edd24e2e01afcc3cdfdf5
 
   ## Preprocess data
   list_from_get_cleaned <- get_cleaned(filename, type = type, na = na, sep = sep)
@@ -56,11 +48,7 @@ get_scores_for_LC_MS <- function(filename, type = c('data.frame','csv','txt'), n
 
 
   ## Build identification network
-<<<<<<< HEAD
   message("Start building network: it may take several minutes......")
-=======
-  print('Start building network: it may take several minutes......')
->>>>>>> eb66f9edd10e572e7e0edd24e2e01afcc3cdfdf5
   Wk <- get_kegg_network(ID$kid)
   Wt <- get_tani_network(ID$cid)
   Wt[Wt>=0.7] <- 1
@@ -93,13 +81,8 @@ get_scores_for_LC_MS <- function(filename, type = c('data.frame','csv','txt'), n
   Y <- as.matrix(as.numeric(ID$emass))
 
   # Gibbs Samplings -- burn-in
-<<<<<<< HEAD
   message('Start getting random samples: it may take several minutes......')
   for (s in 1:iterations){
-=======
-  print('Start getting random samples: it may take several minutes......')
-  for (s in 1:500){
->>>>>>> eb66f9edd10e572e7e0edd24e2e01afcc3cdfdf5
     beta_temp <- as.vector(W%*%Z%*%Matrix(1,ncol=1,nrow=m,sparse=TRUE))
     beta <- Matrix::Matrix(beta_temp,ncol=m,nrow=c,sparse=TRUE)-W%*%Z
     beta_sum <- Matrix::Matrix(apply(beta,1,sum),ncol=m,nrow=c,sparse=TRUE)
@@ -111,11 +94,7 @@ get_scores_for_LC_MS <- function(filename, type = c('data.frame','csv','txt'), n
 
   # Gibbs Samplings
   prob <- Matrix::Matrix(0,nrow=c,ncol=m,sparse=TRUE)
-<<<<<<< HEAD
   for (s in 1:(Size-iterations)){
-=======
-  for (s in 1:(Size-500)){
->>>>>>> eb66f9edd10e572e7e0edd24e2e01afcc3cdfdf5
     beta_temp <- as.vector(W%*%Z%*%Matrix(1,ncol=1,nrow=m,sparse=TRUE))
     beta <- Matrix(beta_temp,ncol=m,nrow=c,sparse=TRUE)-W%*%Z
     beta_sum <- Matrix::Matrix(apply(beta,1,sum),ncol=m,nrow=c,sparse=TRUE)
@@ -125,19 +104,11 @@ get_scores_for_LC_MS <- function(filename, type = c('data.frame','csv','txt'), n
     Z <- Matrix::Matrix(apply(post,2,function(x){rmultinom(1,1,x)}),sparse=TRUE)
     prob <- Z+prob
   }
-<<<<<<< HEAD
   prob <- prob/(Size-iterations)
 
 
   ## add score column to the original file
   message('Start writing scores......')
-=======
-  prob <- prob/(Size-2000)
-
-
-  ## add score column to the original file
-  print('Start writing scores......')
->>>>>>> eb66f9edd10e572e7e0edd24e2e01afcc3cdfdf5
   index_empty <- list_from_get_cleaned$index_na
   df_dup <- list_from_get_cleaned$clean_data
   df$score <- rep(0,dim(df)[1])
@@ -153,11 +124,7 @@ get_scores_for_LC_MS <- function(filename, type = c('data.frame','csv','txt'), n
     }
   }
   df$score[is.na(df$score)] <- 0
-<<<<<<< HEAD
   message('Completed!')
-=======
-  print('Completed!')
->>>>>>> eb66f9edd10e572e7e0edd24e2e01afcc3cdfdf5
 
 
   write.csv(df,file = 'scores.csv')

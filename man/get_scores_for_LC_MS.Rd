@@ -6,11 +6,7 @@
 \usage{
 get_scores_for_LC_MS(filename, type = c("data.frame", "csv", "txt"),
   na = "NA", sep = ";", mode = c("POS", "NEG"), Size = 2000,
-<<<<<<< HEAD
   delta = 1, gamma_mass = 10, iterations = 500)
-=======
-  delta = 1, gamma_mass = 10)
->>>>>>> eb66f9edd10e572e7e0edd24e2e01afcc3cdfdf5
 }
 \arguments{
 \item{filename}{the name of the file which the data are to be read from. Its type should be chosen
@@ -35,17 +31,11 @@ are multiple IDs.}
 \item{delta}{a hyper-parameter representing the mean value of mass ratio.}
 
 \item{gamma_mass}{a hyper-parameter representing the accuracy of mass measurement.}
-<<<<<<< HEAD
 
 \item{iterations}{ask user to input number of interations,default 500}
 }
 \value{
 A dataframe which contains input data together with a
-=======
-}
-\value{
-A csv file named 'scores.csv' in the work directory which contains input data together with a
->>>>>>> eb66f9edd10e572e7e0edd24e2e01afcc3cdfdf5
         column of scores in the end. In the
         score column, if the row contains NA values or does not has a PubChem cid, the score would be
         '-', which stands for missing value. Otherwise, each score would be from 0 to 1.

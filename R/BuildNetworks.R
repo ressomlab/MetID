@@ -10,7 +10,6 @@ get_kegg_network <- function(kegg_id){
   Wk <- Matrix::Matrix(0,ncol=c,nrow=c,sparse = TRUE)
 
   ## deal with muiltiple KEGG IDs and missing KEGG IDs
-<<<<<<< HEAD
   kegg_id <- strsplit(kegg_id, ' ')
   kegg_id <- lapply(kegg_id, unique)
   ids <- unlist(kegg_id)
@@ -18,25 +17,6 @@ get_kegg_network <- function(kegg_id){
 
   ## subset useful kegg_network and replace them with indexes
   kegg_network<-get("kegg_network")
-=======
-  ids <- c()
-  indexes <- c()
-  for (i in 1:c){
-    if (kegg_id[i]!=''){
-      ## multiple IDs
-      if(grepl(' ',kegg_id[i])){
-        add <- unique(strsplit(kegg_id[i],' ')[[1]])
-        ids <- c(ids,add)
-        indexes <- c(indexes,rep(i,length(add)))
-      } else {
-        ids <- c(ids,kegg_id[i])
-        indexes <- c(indexes,i)
-      }
-    }
-  }
-
-  ## subset useful kegg_network and replace them with indexes
->>>>>>> eb66f9edd10e572e7e0edd24e2e01afcc3cdfdf5
   sub_netdb <- kegg_network[(kegg_network$r1 %in% ids)&(kegg_network$r2 %in% ids),]
   if (nrow(sub_netdb)==0){
     return(Wk)
@@ -122,8 +102,3 @@ get_sdf <- function(ids){
   cid(compounds) <- sdfid(compounds)
   return(fp2bit(compounds))
 }
-<<<<<<< HEAD
-=======
-
-
->>>>>>> eb66f9edd10e572e7e0edd24e2e01afcc3cdfdf5
