@@ -32,7 +32,11 @@ get_cleaned <- function(filename, type = c('data.frame','csv','txt'), na, sep){
     }
   # Check column names of data
   if (!all(c("query_m.z", "exact_m.z", "kegg_id", "pubchem_cid") %in% colnames(df))){
+<<<<<<< HEAD
     stop('Please provide features needed, with corresponding column names!')
+=======
+    stop('Please provide features needed, also with right column names!')
+>>>>>>> eb66f9edd10e572e7e0edd24e2e01afcc3cdfdf5
   }
 
 
@@ -42,12 +46,24 @@ get_cleaned <- function(filename, type = c('data.frame','csv','txt'), na, sep){
   kid <- df$kegg_id
   cid <- df$pubchem_cid
   # Add metid column
+<<<<<<< HEAD
   mass_set <- qmass[!duplicated(qmass)]
   metid <- match(qmass, mass_set, nomatch=0)
   # Format id columns
   kid <- format_id(kid, na = na, sep = sep)
   cid <- format_id(cid, na = na, sep = sep)
   cid <- as.numeric(stringr::word(cid,1))
+=======
+  metid <- rep(0,length(qmass))
+  mass_set <- qmass[!duplicated(qmass)]
+  for (i in 1:length(qmass)){
+      metid[qmass==mass_set[i]] <- i
+  }
+  # Format id columns
+  kid <- format_id(kid, na = na, sep = sep)
+  cid <- format_id(cid, na = na, sep = sep)
+  cid <- as.numeric(get_first(cid))
+>>>>>>> eb66f9edd10e572e7e0edd24e2e01afcc3cdfdf5
   # Get inchikey
   inchikey <- get_inchikey(cid)
   df$inchikey <- inchikey
@@ -103,6 +119,7 @@ format_id <- function(id, na, sep){
   return(id)
 }
 
+<<<<<<< HEAD
 get_inchikey<- function(ids){
   response<-vapply(ids, function(i) {
     InchiKey<-get("InchiKey")
@@ -127,6 +144,39 @@ get_inchikey<- function(ids){
 
 
 
+=======
+
+get_first <- function(id){
+  # This function gets the first id if there are multiple ids.
+  for (i in 1:length(id)){
+    if (id[i]==''){
+      id[i] <- ''
+    } else {
+      temp <- strsplit(id[i],' ')[[1]]
+      id[i] <- temp[1]
+    }
+  }
+  return(id)
+}
+
+
+get_inchikey <- function(id){
+  # This function gets the fist 14 charactors of InchiKey from PubChem database.
+  n <- length(id)
+  response <- rep(NA,n)
+  for (i in 1:n){
+    if (!is.na(id[i])){
+      if (!id[i] %in% InchiKey$CID){
+        response[i] <- as.character(id[i])
+      }
+      else{
+        response[i] <- substr(InchiKey$InchiKey[which(InchiKey$CID %in% id[i])],1,14)
+      }
+    }
+  }
+  return(response)
+}
+>>>>>>> eb66f9edd10e572e7e0edd24e2e01afcc3cdfdf5
 
 
 combine_inchikey <- function(compound){
@@ -140,3 +190,7 @@ combine_inchikey <- function(compound){
   }
   return(combined)
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> eb66f9edd10e572e7e0edd24e2e01afcc3cdfdf5
