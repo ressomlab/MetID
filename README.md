@@ -17,5 +17,5 @@ names(demo1)
 ## change colnames
 colnames(demo1) <- c('query_m.z','name','formula','exact_m.z','pubchem_cid','kegg_id')
 ## get scores
-out <- get_scores_for_LC_MS(demo1, type = 'data.frame', na='-', mode='POS')
+out <- get_scores_for_LC_MS(demo1, type = 'data.frame', na='-', mode='POS',iterations=1000)
 ```
