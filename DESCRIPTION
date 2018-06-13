@@ -1,7 +1,6 @@
 Package: MetID
 Type: Package
 Title: Network-based prioritization of putative metabolite IDs
-<<<<<<< HEAD
 Version: 0.99.4
 Author: Zhenzhi Li <zl200@georgetown.edu>
 Maintainer: Zhenzhi Li <zl200@georgetown.edu>
