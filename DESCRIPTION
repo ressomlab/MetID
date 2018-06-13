@@ -2,18 +2,11 @@ Package: MetID
 Type: Package
 Title: Network-based prioritization of putative metabolite IDs
 Version: 0.99.4
-Author: Zhenzhi Li <zl200@georgetown.edu>
-Maintainer: Zhenzhi Li <zl200@georgetown.edu>
-URL: https://github.com/ressomlab/MetID
-Description: This package uses an innovative network-based approach that will enhance our ability to determine the identities of significant ions detected by LC-MS.
-=======
-Version: 0.99.3
-Author: Xuchen Wang <xw187@georgetown.edu>
-Maintainer: Xuchen Wang <xw187@georgetown.edu>
+Author: Zhenzhi Li <zzrickli@gmail.com>
+Maintainer: Zhenzhi Li <zzrickli@gmail.com>
 URL: https://github.com/ressomlab/MetID
 Description: This package uses an innovative network-based approach that will enhance our ability to determine the identities of significant ions detected by LC-MS.
     Use four spaces when indenting paragraphs within the Description.
->>>>>>> eb66f9edd10e572e7e0edd24e2e01afcc3cdfdf5
 License: Artistic-2.0
 Encoding: UTF-8
 LazyData: true
