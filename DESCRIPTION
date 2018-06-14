@@ -1,7 +1,7 @@
 Package: MetID
 Type: Package
 Title: Network-based prioritization of putative metabolite IDs
-Version: 0.99.4
+Version: 0.99.5
 Author: Zhenzhi Li <zzrickli@gmail.com>
 Maintainer: Zhenzhi Li <zzrickli@gmail.com>
 URL: https://github.com/ressomlab/MetID
